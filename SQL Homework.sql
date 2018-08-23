@@ -121,15 +121,15 @@ i.inventory_id = r.inventory_id
 GROUP BY f.title
 ORDER BY 2 DESC;
 
-#7f. Display how much business in dollars brought in by each store
-SELECT s.store_id, SUM(p.amount)
+#7f. Display how much business in dollars brought in by each store STore, Inventory, Rental, Payment
+SELECT s.store_id, SUM(p.amount) AS Total_Dollars
 FROM store s 
 JOIN inventory i ON
 s.store_id = i.store_id
 JOIN rental r ON 
 i.inventory_id = r.inventory_id
 JOIN payment p ON 
-r.staff_id = p.staff_id
+r.rental_id = p.rental_id
 GROUP BY s.store_id;
 
 #7g. Display store id, city and country for each store
@@ -142,7 +142,7 @@ address.city_id = city.city_id
 JOIN country ON 
 city.country_id = country.country_id;
 
-#7h. 
+#7h. List top 5 genres in gross revene in descending order
 SELECT SUM(p.amount), category.name
 FROM payment p 
 JOIN rental r ON
@@ -156,7 +156,7 @@ film_category.category_id = category.category_id
 GROUP BY category.name 
 ORDER BY 1 DESC limit 5;
 
-#8a.
+#8a. Create view 'Top 5 Genres'
 CREATE VIEW Top_5_Genres AS
 SELECT SUM(p.amount), category.name
 FROM payment p 
