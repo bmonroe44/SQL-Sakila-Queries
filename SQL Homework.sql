@@ -10,7 +10,7 @@ SELECT first_name, last_name FROM actor;
 #1b. Display the first and last name of each actor in a single column in uppercase letters called 'Actor Name'
 ALTER TABLE actor ADD COLUMN Actor_Name VARCHAR(50);
 UPDATE actor SET Actor_Name = CONCAT(first_name, ' ', last_name);
-SELECT UPPER(Actor_Name) FROM actor;
+SELECT UPPER(Actor_Name) AS 'Actor Name' FROM actor;
 
 #2a. Find the ID number, first name, and last name of an actor with the first name "Joe."
 SELECT actor_id, first_name, last_name FROM actor WHERE first_name = 'Joe';
@@ -158,7 +158,7 @@ ORDER BY 1 DESC limit 5;
 
 #8a. Create view 'Top 5 Genres'
 CREATE VIEW Top_5_Genres AS
-SELECT SUM(p.amount), category.name
+SELECT SUM(p.amount) AS 'Total Amount', category.name AS Genre
 FROM payment p 
 JOIN rental r ON
 p.rental_id = r.rental_id
